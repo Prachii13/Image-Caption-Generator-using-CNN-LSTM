@@ -1,0 +1,26 @@
+from pickle import dump, load
+from captions_generator import create_tokenizer, max_length, define_model, create_sequences
+
+# Load cleaned captions and image features
+descriptions = load(open('data/descriptions.pkl', 'rb'))
+features = load(open('data/features.pkl', 'rb'))  # generated using utils.extract_features()
+
+# Tokenizer
+tokenizer = create_tokenizer(descriptions)
+dump(tokenizer, open('models/tokenizer.pkl', 'wb'))
+
+vocab_size = len(tokenizer.word_index) + 1
+max_len = max_length(descriptions)
+
+# Train-test split (you can split image keys)
+train = list(descriptions.keys())[:6000]
+
+# Generate data
+X1, X2, y = create_sequences(tokenizer, max_len, {k: descriptions[k] for k in train}, features, vocab_size)
+
+# Define and train model
+model = define_model(vocab_size, max_len)
+model.fit([X1, X2], y, epochs=20, verbose=2)
+
+# Save model
+model.save('models/image_caption_model.h5')
