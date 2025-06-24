@@ -1,0 +1,1 @@
+python generate_caption.py path_to_image.jpg
