@@ -1,0 +1,12 @@
+image_caption_generator/
+├── data/                      # Downloaded dataset (Flickr8k/Flickr30k)
+├── models/                    # Saved model weights
+├── notebooks/                 # Training and EDA notebooks
+├── app/                       # Streamlit app (optional for deployment)
+├── captions_generator.py      # Core model code
+├── utils.py                   # Preprocessing, feature extraction
+├── train.py                   # Training script
+├── generate_caption.py        # Predict caption for new image
+├── requirements.txt
+├── README.md
+└── .gitignore
